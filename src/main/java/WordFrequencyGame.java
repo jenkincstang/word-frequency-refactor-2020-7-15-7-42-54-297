@@ -6,9 +6,7 @@ import java.time.LocalDateTime;
 public class WordFrequencyGame {
     public String getResult(String inputStr) {
         Map<String, Integer> wordMap = getWordCountedResult(inputStr);
-
         List<Map.Entry<String, Integer>> wordList = getSortedWordResult(wordMap);
-
         return getFormatResult(wordList);
     }
 
@@ -34,7 +32,6 @@ public class WordFrequencyGame {
 
     private Map<String, Integer> getWordCountedResult(String inputStr) {
         String[] words = inputStr.split("\\s+");
-
         Map<String, Integer> wordMap = new HashMap<>();
         for (String word : words) {
             if (wordMap.containsKey(word)) {
