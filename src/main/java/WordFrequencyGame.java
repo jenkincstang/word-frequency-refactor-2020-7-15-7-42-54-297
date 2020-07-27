@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 import java.io.CharArrayWriter;
 
 import java.time.LocalDateTime;
@@ -18,27 +14,28 @@ public class WordFrequencyGame {
                 //split the input string with 1 to n pieces of spaces
                 String[] words = inputStr.split("\\s+");
 
-                List<Input> inputList = new ArrayList<>();
-                for (String word : words) {
-                    Input input = new Input(word, 1);
-                    inputList.add(input);
+                Map<String,Integer> wordMap = new HashMap<>();
+                for(String word:words){
+                    if(wordMap.containsKey(word)){
+                        wordMap.put(word,wordMap.get(word)+1);
+                    }else {
+                        wordMap.put(word,1);
+                    }
                 }
 
-                //get the map for the next step of sizing the same word
-                Map<String, List<Input>> map =getListMap(inputList);
+                List<Map.Entry<String, Integer>> wordList = new ArrayList<Map.Entry<String, Integer>>(wordMap.entrySet());
+                wordList.sort(new Comparator<Map.Entry<String, Integer>>() {
+                    @Override
+                    public int compare(Map.Entry<String, Integer> preEntry, Map.Entry<String, Integer> laterEntry) {
+                        return laterEntry.getValue().compareTo(preEntry.getValue());
+                    }
+                });
 
-                List<Input> list = new ArrayList<>();
-                for (Map.Entry<String, List<Input>> entry : map.entrySet()) {
-                    Input input = new Input(entry.getKey(), entry.getValue().size());
-                    list.add(input);
-                }
-                inputList = list;
 
-                inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
                 StringJoiner joiner = new StringJoiner("\n");
-                for (Input w : inputList) {
-                    String s = w.getValue() + " " +w.getWordCount();
+                for (Map.Entry<String, Integer> entry : wordList) {
+                    String s = entry.getKey() + " " +entry.getValue();
                     joiner.add(s);
                 }
                 return joiner.toString();
