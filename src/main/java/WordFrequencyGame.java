@@ -5,13 +5,10 @@ import java.time.LocalDateTime;
 
 public class WordFrequencyGame {
     public String getResult(String inputStr) {
-
-
         {
 
             try {
 
-                //split the input string with 1 to n pieces of spaces
                 String[] words = inputStr.split("\\s+");
 
                 Map<String,Integer> wordMap = new HashMap<>();
@@ -31,8 +28,6 @@ public class WordFrequencyGame {
                     }
                 });
 
-
-
                 StringJoiner joiner = new StringJoiner("\n");
                 for (Map.Entry<String, Integer> entry : wordList) {
                     String s = entry.getKey() + " " +entry.getValue();
@@ -43,21 +38,5 @@ public class WordFrequencyGame {
                 return "Calculate Error";
             }
         }
-    }
-
-    private Map<String, List<Input>> getListMap(List<Input> inputList) {
-        Map<String, List<Input>> map = new HashMap<>();
-        for (Input input : inputList){
-//       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
-            if (!map.containsKey(input.getValue())) {
-                ArrayList arr = new ArrayList<>();
-                arr.add(input);
-                map.put(input.getValue(), arr);
-            }
-            else {
-                map.get(input.getValue()).add(input);
-            }
-        }
-        return map;
     }
 }
