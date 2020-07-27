@@ -5,18 +5,20 @@ import java.time.LocalDateTime;
 
 public class WordFrequencyGame {
     public String getResult(String inputStr) {
-        {
-            Map<String, Integer> wordMap = getWordCountedResult(inputStr);
+        Map<String, Integer> wordMap = getWordCountedResult(inputStr);
 
-            List<Map.Entry<String, Integer>> wordList = getSortedWordResult(wordMap);
+        List<Map.Entry<String, Integer>> wordList = getSortedWordResult(wordMap);
 
-            StringJoiner joiner = new StringJoiner("\n");
-            for (Map.Entry<String, Integer> entry : wordList) {
-                String s = entry.getKey() + " " + entry.getValue();
-                joiner.add(s);
-            }
-            return joiner.toString();
+        return getFormatResult(wordList);
+    }
+
+    private String getFormatResult(List<Map.Entry<String, Integer>> wordList) {
+        StringJoiner joiner = new StringJoiner("\n");
+        for (Map.Entry<String, Integer> entry : wordList) {
+            String s = entry.getKey() + " " + entry.getValue();
+            joiner.add(s);
         }
+        return joiner.toString();
     }
 
     private List<Map.Entry<String, Integer>> getSortedWordResult(Map<String, Integer> wordMap) {
